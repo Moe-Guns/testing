@@ -3,39 +3,208 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Temporary Test Page</title>
+    <title>Web Management Services</title>
     <style>
-        body {
+        @import url('https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&display=swap');
+
+        /* Basic reset and styles */
+        body, h1, p, ul, li {
             margin: 0;
             padding: 0;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #F0F0F0;
-            color: #333;
-            display: flex;
-            justify-content: center;
-            align-items: center;
+            list-style: none;
+        }
+		
+		/* Specific styling for h1 elements */
+		h1 {
+		color: #c0c0c0; /* Silver color */
+		animation: fadeIn 15s; 
+		
+}
+
+
+        /* Font and background styling */
+        body {
+            font-family: 'Merriweather', serif;
+            color: #20c997; /* Bright green text */
+            background-color: #202124; /* ChatGPT-like dark background */
             text-align: center;
             height: 100vh;
+            display: flex;
             flex-direction: column;
+            justify-content: center;
+            align-items: center;
         }
 
-        h1 {
+        /* Main menu styling */
+        .menu {
+            height: 100%;
+            width: 0; /* Initially hidden */
+            position: fixed;
+            z-index: 1;
+            top: 0;
+            left: 0;
+            background-color: #333;
+            overflow-x: hidden;
+            transition: 0.5s;
+            padding-top: 60px;
+        }
+
+        /* Menu links/items styling */
+        .menu a, .menu span {
+            padding: 8px 8px 8px 32px;
+            text-decoration: none;
+            font-size: 25px;
+            color: #c0c0c0; /* Silver */
+            display: block;
+            transition: 0.3s;
+            cursor: pointer;
+        }
+		
+		/* Main message styling */
+		.main-message {
+		max-width: 600px; /* Adjusted width for centering */
+		margin: 40px auto; /* Top and bottom margin for spacing, auto for centering */
+		padding: 20px;
+		box-sizing: border-box;
+		
+}
+
+        /* Nested menu styling */
+        .nested-menu {
+            width: 250px;
+            position: absolute;
+            top: 0;
+            left: 100%;
+            background-color: #444;
+            overflow-x: hidden;
+            transition: 0.5s;
+            padding-top: 60px;
+            z-index: 2;
+            display: none; /* Initially hidden */
+        }
+
+        /* Adjustments for nested menu items */
+        .nested-menu a {
+            padding: 8px 8px 8px 16px;
+            font-size: 20px;
+            color: #c0c0c0; /* Silver */
+        }
+
+        /* Close button for the main menu */
+		.menu .closebtn {
+		position: absolute;
+		top: 0;
+		right: 25px;
+		font-size: 36px;
+		margin-left: 50px;
+		cursor: pointer;
+		color: #c0c0c0; /* Updated to Silver */
+}
+
+
+		/* Styling for the 'Get Directions' button - updated version */
+		.directions-button {
+		background-color: #1a4c40; /* Dark green background */
+		color: #c0c0c0; /* Silver text */
+		padding: 14px 25px;
+		font-size: 16px;
+		margin: 20px 0;
+		border: none;
+		cursor: pointer;
+		transition: background-color 0.3s ease;
+}
+
+        /* Styling for the Google Maps iframe for responsiveness */
+        iframe {
+            width: 100%;
+            max-width: 600px;
+            height: 450px;
+            border: none;
             margin-bottom: 20px;
         }
 
-        @media (max-width: 600px) {
-            h1 {
-                font-size: 24px;
-            }
-
-            p {
-                font-size: 18px;
-            }
+        /* Hover effects */
+        .directions-button:hover, .menu a:hover, .menu span:hover, .nested-menu a:hover {
+            color: #20c997; /* Change hover color to bright green for consistency */
         }
+
+        /* Responsive design */
+		@media (max-width: 600px) {
+		h1, p {
+        font-size: 16px;
+       }
+		.menu, .nested-menu {
+        width: 100%;
+    }
+}
+		.menu-button {
+        color: #c0c0c0; /* Silver color */
+         }
+		 
+		/* Fade in animation for the header */
+		@keyframes fadeIn {
+		from { opacity: 0; }
+		to { opacity: 1; }
+}
+
     </style>
 </head>
 <body>
-    <h1>Welcome to the Temporary Test Page</h1>
-    <p>This is a temporary test page. If you would like to have your website designed and managed by me, contact me at (423) 377-6567.</p>
+
+<div id="menu" class="menu">
+    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+    <a href="#">Home</a>
+    <span onclick="toggleContact()">Contact</span>
+    <ul id="contactInfo" class="submenu">
+        <li>Text or Call: (423) 377-6567</li>
+    </ul>
+</div>
+
+<span class="menu-button" style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776; Menu</span>
+
+<!-- Main content area with header and subtext message -->
+<div class="main-message">
+    <h1>Professional Web Design & Management</h1>
+    <p><span class="subtext-message"></span></p> <!-- Add the span with the class here -->
+</div>
+
+<div class="map-container">
+    <a href="https://www.google.com/maps/dir/?api=1&destination=710+Pinnacle+Alley+Cumberland+Gap+TN+37724" target="_blank">
+        <button class="directions-button">Get Directions</button>
+    </a>
+    <iframe src="https://www.google.com/maps/embed/v1/place?key=AIzaSyBzjRVb9xrT6-Y7DAt4-Qu_2qShm8Ar_Es&q=710+Pinnacle+Alley,Cumberland+Gap,TN+37724"></iframe>
+</div>
+
+<script>
+function openNav() {
+    document.getElementById("menu").style.width = "250px";
+}
+
+function closeNav() {
+    document.getElementById("menu").style.width = "0";
+}
+
+function toggleContact() {
+    var contactInfo = document.getElementById("contactInfo");
+    contactInfo.style.display = contactInfo.style.display === 'block' ? 'none' : 'block';
+}
+
+// Typing effect for the subtext message
+const subtext = 'Looking for a sleek, responsive website that stands out? We specialize in creating and managing modern websites tailored to your business needs. Let\'s collaborate to enhance your online presence. Open the menu and contact us today!';
+let i = 0;
+function typeEffect() {
+    if (i < subtext.length) {
+        document.querySelector('.subtext-message').innerHTML += subtext.charAt(i);
+        i++;
+        setTimeout(typeEffect, 50); // Adjust typing speed by changing timeout duration
+    }
+}
+
+// Run the typing effect after the DOM content is fully loaded
+document.addEventListener('DOMContentLoaded', function() {
+    typeEffect();
+});
+</script>
+
 </body>
 </html>
